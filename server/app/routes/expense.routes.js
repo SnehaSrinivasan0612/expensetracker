@@ -19,21 +19,10 @@ module.exports = app => {
     expenseRouter.put("/:id", controller.updateExpense);
 
     // Delete a expense with id
-    expenseRouter.delete("/:id", controller.delete);
+    expenseRouter.delete("/:id", controller.deleteExpense);
 
     // Create a new expense
     expenseRouter.delete("/", controller.deleteAll);
-
-    var categoryRouter = require("express").Router();
-
-    // Create a new category
-    categoryRouter.post("/", controller.createCategory);
-
-    // Retrieve all categories
-    categoryRouter.get("/", controller.findAllCategories);
-
-    // Update a category with id
-    categoryRouter.put("/:id", controller.updateCategory);
 
     var userRouter = require("express").Router();
 
@@ -46,7 +35,9 @@ module.exports = app => {
     // Update a user with id
     userRouter.put("/:id", controller.updateUser);
 
+    // Delete a expense with id
+    userRouter.delete("/:id", controller.deleteUser);
+
     app.use('/api/expenses', expenseRouter);
-    app.use('/api/categories', categoryRouter);
     app.use('/api/users', userRouter);
 };

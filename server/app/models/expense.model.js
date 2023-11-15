@@ -4,24 +4,17 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     UserEmail: DataTypes.STRING(100),
     PasswordHash: DataTypes.STRING(100)
   });
-  const Categories = sequelize.define("categories", {
-    CategoryName: DataTypes.STRING(100)
-  });
   const Expenses = sequelize.define("expenses", {
     UserID: DataTypes.INTEGER,
     CategoryID: DataTypes.INTEGER,
     Amount: DataTypes.DECIMAL(10, 2),
     ExpenseDescription: DataTypes.STRING(200),
-    ExpenseDate: DataTypes.DATE
+    ExpenseDate: DataTypes.DATE,
+    CategoryName: DataTypes.STRING(100)
   });
   Users.hasMany(Expenses, { foreignKey: 'UserID' });
-  Users.hasOne(Expenses, {
-    onDelete: "CASCADE"
-  });
-  Categories.hasMany(Expenses, { foreignKey: 'CategoryID' });
-  Expenses.belongsTo(Users, { foreignKey: 'id' });
-  Expenses.belongsTo(Categories, { foreignKey: 'id' });
+  Expenses.belongsTo(Users, { foreignKey: 'id', onDelete: "CASCADE" });
   return {
-    Expenses, Users, Categories
+    Expenses, Users
   };
 };

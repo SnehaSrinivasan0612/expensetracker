@@ -8,7 +8,3 @@ curl --request PUT  -H "Content-Type: application/json"  --data '{
       "UserEmail":"test2modified@test.com"
   }
   '  http://localhost:8082/api/users/2 | lynx -stdin --dump
-curl --request PUT  -H "Content-Type: application/json"  --data '{
-      "CategoryName":"Test Category Modified"
-  }
-  '  http://localhost:8082/api/categories/1 | lynx -stdin --dump

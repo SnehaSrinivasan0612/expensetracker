@@ -1,6 +1,5 @@
 const db = require("../models");
 const Expenses = db.tables.Expenses;
-const Categories = db.tables.Categories
 const Users = db.tables.Users
 const Op = db.Sequelize.Op;
 
@@ -19,7 +18,8 @@ exports.createExpense = (req, res) => {
         CategoryID: req.body.CategoryID,
         Amount: req.body.Amount,
         ExpenseDescription: req.body.ExpenseDescription,
-        ExpenseDate: req.body.ExpenseDate
+        ExpenseDate: req.body.ExpenseDate,
+        CategoryName: req.body.CategoryName
     };
 
     // Save Expense in the database
@@ -34,33 +34,6 @@ exports.createExpense = (req, res) => {
             });
         });
 };
-
-exports.createCategory = (req, res) => {
-    // Validate request
-    if (!req.body.CategoryName) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-        return;
-    }
-    // Create a Category
-    const category = {
-        CategoryName: req.body.CategoryName
-    };
-
-    // Save Category in the database
-    Categories.create(category)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the Category"
-            });
-        });
-};
-
 exports.createUser = (req, res) => {
     // Validate request
     if (!req.body.UserName) {
@@ -110,7 +83,6 @@ exports.findAllExpenses = (res, req) => { this.findAll(res, req, Expenses) };
 
 exports.findAllUsers = (res, req) => { this.findAll(res, req, Users) };
 
-exports.findAllCategories = (res, req) => { this.findAll(res, req, Categories) };
 // Find a single Expense with an id
 exports.findOne = (req, res) => {
 
@@ -126,17 +98,17 @@ exports.update = (req, res, table,) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: `${table} was updated successfully.`
+                    message: `Table was updated successfully.`
                 });
             } else {
                 res.send({
-                    message: `Cannot update ${table} with id=${id}. Maybe table was not found or req.body is empty!`
+                    message: `Cannot update row with id=${id}. Maybe table was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: `Error updating ${table} with id=` + id
+                message: `Error updating row with id=` + id
             });
         });
 
@@ -144,13 +116,34 @@ exports.update = (req, res, table,) => {
 
 exports.updateExpense = (req, res) => { this.update(req, res, Expenses) };
 exports.updateUser = (req, res) => { this.update(req, res, Users) };
-exports.updateCategory = (req, res) => { this.update(req, res, Categories) };
 
 // Delete a Expense with the specified id in the request
-exports.delete = (req, res) => {
+exports.delete = (req, res, table) => {
+    const id = req.params.id;
 
+    table.destroy({
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Row was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete Row with id=${id}. Maybe row was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete row with id=" + id
+            });
+        });
 };
 
+exports.deleteUser = (req, res) => { this.delete(req, res, Users) };
+exports.deleteExpense = (req, res) => { this.delete(req, res, Expenses) };
 // Delete all Expenses from the database.
 exports.deleteAll = (req, res) => {
 
