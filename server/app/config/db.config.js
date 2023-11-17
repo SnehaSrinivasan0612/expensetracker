@@ -2,7 +2,7 @@ module.exports = {
   HOST: "localhost",
   USER: "archuser",
   PASSWORD: "12345678",
-  DB: "archuser",
+  DB: "expensetracker",
   dialect: "postgresql",
   pool: {
     max: 5,

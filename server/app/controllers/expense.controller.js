@@ -1,15 +1,16 @@
 const db = require("../models");
 const Expenses = db.tables.Expenses;
-const Users = db.tables.Users
+const Users = db.tables.Users;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Expense
 exports.createExpense = (req, res) => {
     // Validate request
-    if (!req.body.UserID) {
+    if (!req.body.Amount) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
+        console.log(req.body);
         return;
     }
     // Create a Expense

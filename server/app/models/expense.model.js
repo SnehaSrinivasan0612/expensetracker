@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
     CategoryName: DataTypes.STRING(100)
   });
   Users.hasMany(Expenses, { foreignKey: 'UserID' });
-  Expenses.belongsTo(Users, { foreignKey: 'id', onDelete: "CASCADE" });
+  //Expenses.belongsTo(Users, { foreignKey: 'id', onDelete: "CASCADE" });
   return {
     Expenses, Users
   };
