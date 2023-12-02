@@ -4,15 +4,14 @@ const db = require("../models");
 const User = db.tables.Users;
 
 verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
-
+  let token = req.headers["authorization"];
   if (!token) {
     return res.status(403).send({
       message: "No token provided!"
     });
   }
 
-  jwt.verify(token,
+  jwt.verify(token.split(' ')[1],
     config.secret,
     (err, decoded) => {
       if (err) {

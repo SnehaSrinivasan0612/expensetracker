@@ -147,7 +147,11 @@ exports.deleteUser = (req, res) => { this.delete(req, res, Users) };
 exports.deleteExpense = (req, res) => { this.delete(req, res, Expenses) };
 // Delete all Expenses from the database.
 exports.deleteAll = (req, res) => {
-
+    console.log("yes");
+    Expenses.destroy({
+        where: {},
+        truncate: true,
+    });
 };
 
 // Find all published Expenses
