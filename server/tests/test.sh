@@ -18,7 +18,7 @@ signin=$(curl --request POST  -H "Content-Type: application/json"  --data '{
     }
     '  http://localhost:8082/api/auth/signin)
 echo $signin
-access_token="Bearer $(echo $signin | jq -r '.accessToken')"
+access_token="$(echo $signin | jq -r '.accessToken')"
 curl --request POST  -H "authorization: $access_token" -H "Content-Type: application/json"  --data '{
       "CategoryID": "1",
       "Amount": "20.23",

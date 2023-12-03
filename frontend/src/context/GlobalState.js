@@ -13,8 +13,7 @@ const initialState = {
 export const GlobalContext = createContext(initialState);
 axios.interceptors.request.use(
     (config) => {
-        config.headers.Authorization = 
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjEsImlhdCI6MTcwMTUxMjI2MCwiZXhwIjoxNzAxNTk4NjYwfQ.hG4EKwzirt7AkcgG7Fy1eHdjzTIc_9LTX14sFSA98p0"
+        config.headers.Authorization = localStorage.getItem('token'); 
         return config;
     },(error) => {
         return Promise.reject(error);
