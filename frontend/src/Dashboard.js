@@ -8,7 +8,7 @@ import './App.css'
 import { GlobalProvider } from './context/GlobalState';
 import { DeleteAll } from './components/DeleteAll';
 
-function App() {
+function Dashboard() {
   return (
     <GlobalProvider>
       <Header />
@@ -23,4 +23,4 @@ function App() {
   );
 }
 
-export default App;
+export default Dashboard;
