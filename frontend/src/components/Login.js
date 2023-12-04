@@ -40,7 +40,7 @@ const history = useHistory();
 
       } else {
         setAuth(false);
-        alert(parseRes);
+        alert("Invalid Credentials");
       }
 
     } catch (err) {
@@ -69,7 +69,7 @@ const history = useHistory();
           placeholder="Password"
           required
         />
-
+        <br/>
         <input type="submit" value="Login" />
       </form>
     </div>

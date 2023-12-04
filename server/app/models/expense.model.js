@@ -6,7 +6,6 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
   });
   const Expenses = sequelize.define("expenses", {
     UserID: DataTypes.INTEGER,
-    CategoryID: DataTypes.INTEGER,
     Amount: DataTypes.DECIMAL(10, 2),
     ExpenseDescription: DataTypes.STRING(200),
     ExpenseDate: DataTypes.DATE,

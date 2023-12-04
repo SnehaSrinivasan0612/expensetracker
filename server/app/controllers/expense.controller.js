@@ -16,7 +16,6 @@ exports.createExpense = (req, res) => {
     // Create a Expense
     const expense = {
         UserID: req.body.UserID,
-        CategoryID: req.body.CategoryID,
         Amount: req.body.Amount,
         ExpenseDescription: req.body.ExpenseDescription,
         ExpenseDate: req.body.ExpenseDate,
