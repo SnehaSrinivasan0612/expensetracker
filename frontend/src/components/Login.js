@@ -50,7 +50,7 @@ const history = useHistory();
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Expense Tracker Login</h1>
       <form onSubmit={onSubmitForm}>
         <input 
           type="text"
@@ -70,7 +70,7 @@ const history = useHistory();
           required
         />
         <br/>
-        <input type="submit" value="Login" />
+        <input className="btn" type="submit" value="Login" />
       </form>
     </div>
   );
