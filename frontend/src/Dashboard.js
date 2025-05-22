@@ -11,13 +11,25 @@ import { DeleteAll } from './components/DeleteAll';
 function Dashboard() {
   return (
     <GlobalProvider>
-      <Header />
+      <div data-testid="header">
+        <Header />
+      </div>
       <div className="container">
-        
-        <IncomeExpenses />
-        <TransactionList />
-        <AddTransaction />
-      
+        <div data-testid="balance">
+          <Balance />
+        </div>
+        <div data-testid="income-expenses">
+          <IncomeExpenses />
+        </div>
+        <div data-testid="transaction-list">
+          <TransactionList />
+        </div>
+        <div data-testid="add-transaction">
+          <AddTransaction />
+        </div>
+        <div data-testid="delete-all">
+          <DeleteAll />
+        </div>
       </div>
     </GlobalProvider>
   );

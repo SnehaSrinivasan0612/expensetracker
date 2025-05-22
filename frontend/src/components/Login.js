@@ -1,18 +1,21 @@
 // Login.js
 
 import React, { useState } from 'react'; 
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 function Login({ setAuth }) {
-const history = useHistory();
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     username: "",
     password: ""
   });
+  const [error, setError] = useState("");
   
   const { username, password } = inputs;
 
   const onChange = e => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
+    setError(""); // Clear error when user types
   };
 
   const onSubmitForm = async e => {
@@ -36,15 +39,16 @@ const history = useHistory();
         localStorage.setItem("token", parseRes.accessToken);
         setAuth(true);
         // Redirect to dashboard
-        history.push("/dashboard"); 
-
+        navigate("/dashboard", { replace: true });
       } else {
         setAuth(false);
-        alert("Invalid Credentials");
+        setError(parseRes.error || "Invalid Credentials");
       }
 
     } catch (err) {
       console.error(err.message);
+      setError(err.message || "Network error");
+      setAuth(false);
     }
   };
 
@@ -56,7 +60,7 @@ const history = useHistory();
           type="text"
           name="username"
           value={username}
-          onChange={e => onChange(e)}  
+          onChange={onChange}  
           placeholder="Username"
           required 
         />
@@ -65,10 +69,11 @@ const history = useHistory();
           type="password"
           name="password"
           value={password}
-          onChange={e => onChange(e)}
+          onChange={onChange}
           placeholder="Password"
           required
         />
+        {error && <div data-testid="error-message" className="error">{error}</div>}
         <br/>
         <input className="btn" type="submit" value="Login" />
       </form>

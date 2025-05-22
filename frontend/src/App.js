@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // Components
 import Login from './components/Login';
 import Dashboard from './Dashboard';
-import PrivateRoute from './components/PrivateRoute';
 
 function App() {
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = boolean => {
@@ -17,19 +15,22 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
+        <Routes>
           <Route 
-            exact path='/' 
-            render={props => 
-              <Login {...props} setAuth={setAuth} />
+            path='/' 
+            element={<Login setAuth={setAuth} />}
+          />
+          <Route 
+            path="/dashboard"
+            element={
+              isAuthenticated ? (
+                <Dashboard />
+              ) : (
+                <Navigate to="/" replace />
+              )
             }
           />
-          <PrivateRoute 
-            path="/dashboard"
-            component={Dashboard}
-            isAuthenticated={isAuthenticated}
-          />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );
